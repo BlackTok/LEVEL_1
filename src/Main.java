@@ -93,6 +93,8 @@ public class Main {
             } else {
                 System.out.println("Год високосный!");
             }
+        } else {
+            System.out.println("Год не високосный!");
         }
 
     }
