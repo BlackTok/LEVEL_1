@@ -1,8 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
+public class Main1 {
+    public static void Main(String[] args) {
         // 0
         String str1 = "Это предложение  один     А это    два      Тут третье   предложение   ";
         //fixString(str1);
