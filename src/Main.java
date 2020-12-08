@@ -1,151 +1,129 @@
+import java.util.Random;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        // 0
+        String str1 = "Это предложение  один     А это    два      Тут третье   предложение   ";
+        //fixString(str1);
+
         // 1
-        changeElement();
+        //guessTheNumber();
 
         // 2
-        addElementToArray();
+        guessTheWord();
+    }
 
-        // 3
-        multiplyBySix();
+    // 0
+    public static void fixString(String str) {
+        System.out.println(str);
+        str = str.replaceAll(" +"," ");
+        System.out.println(str);
+        StringBuilder str1 = new StringBuilder(str);
 
-        // 4
-        oneDiagonal();
+        for (int i = 1; i < str1.length(); i++) {
+            if (str1.charAt(i) >= 'А' && str1.charAt(i) <= 'Я') {
+                str1.setCharAt(i-1,'.');
+                str1.insert(i," ");
+                i++;
+            }
+        }
 
-        // 5
-        minAndMaxElements();
+        for (int i = str1.length() - 1; i >= 0; i--) {
+            if (str1.charAt(i) >= 'а' && str1.charAt(i) <= 'я') {
+                str1.insert(i + 1,".");
+                break;
+            }
+        }
 
-        // 6
-        int[] array1 = {1,1,1,1,1,2,3};
-        boolean bool = leftEqualsRight(array1);
-
-        // 7
-        int[] array2 = {1,2,3,4,5};
-        int n = -1;
-        displaceElement(array2, n);
-
+        System.out.println(str1);
     }
 
     // 1
-    public static void changeElement() {
-        int[] array = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == 1) {
-                array[i] = 0;
+    public static void guessTheNumber() {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        int a = random.nextInt(10);
+        boolean flag = false;
+
+        System.out.println("Угадайте число от 0 до 9");
+        for (int i = 0; i < 3; i++) {
+            int answer = scanner.nextInt();
+            if (answer == a) {
+                flag = true;
+                break;
+            } else if (answer < a) {
+                System.out.println("Ваше число меньше загаданного.");
             } else {
-                array[i] = 1;
+                System.out.println("Ваше число больше загаданного.");
             }
+        }
+
+        if (flag) {
+            System.out.println("Поздравляю! Вы угадали!");
+        } else {
+            System.out.println("У Вас закончились попытки.");
+        }
+        repeatTheGame();
+    }
+
+    public static void repeatTheGame() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Повторить игру еще раз? 1 – да / 0 – нет");
+        int answer = scanner.nextInt();
+        if (answer == 1) {
+            guessTheNumber();
         }
     }
 
     // 2
-    public static void addElementToArray() {
-        int[] array = new int[8];
-        int count = 0;
+    public static void guessTheWord() {
+        Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
 
-        for (int i = 0; i < array.length; i++) {
-            array[i] = count;
-            count += 3;
-        }
-    }
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
+        int index = random.nextInt(words.length - 1);
+        StringBuilder word = new StringBuilder(words[index]);
+        StringBuilder cipher = new StringBuilder("###############");
+        boolean flag = false;
 
-    // 3
-    public static void multiplyBySix() {
-        int[] array = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
+        System.out.println("Отгадайте загаданное слово. Если хотите завершить игру, наберите exit");
+        do {
+            String answer = scanner.nextLine();
+            StringBuilder answer1 = new StringBuilder(answer);
 
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] < 6) {
-                array[i] *= 2;
-            }
-        }
-    }
-
-    // 4
-    public static void oneDiagonal() {
-        int[][] array = new int[5][5];
-
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                if (i == j || i + j == 4) {
-                    array[i][j] = 1;
-                } else {
-                    array[i][j] = 0;
+            if (answer.equalsIgnoreCase("exit")) {
+                break;
+            } else if (answer1.toString().equalsIgnoreCase(word.toString())) {
+                flag = true;
+                break;
+            } else {
+                int length = (answer1.length() < word.length()) ? answer1.length() : word.length();
+                for (int i = 0; i < length; i++) {
+                    if (answer1.charAt(i) == word.charAt(i)) {
+                        cipher.setCharAt(i,answer1.charAt(i));
+                    }
                 }
-                System.out.print(array[i][j] + " ");
             }
-            System.out.println();
-        }
-    }
+            System.out.println(cipher);
+        } while (true);
 
-    // 5
-    public static void minAndMaxElements() {
-        int[] array = {10,20,-5,155,0,6};
-        int minE = array[0];
-        int maxE = array[0];
-
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] > maxE) {
-                maxE = array[i];
-            } else if (array[i] < minE) {
-                minE = array[i];
-            }
-        }
-    }
-
-    // 6
-    public static boolean leftEqualsRight(int[] array) {
-        int left = 0;
-        int right = 0;
-
-        for (int i = 0; i < array.length; i++) {
-            for (int j = i; j >= 0; j--) {
-                left += array[j];
-            }
-            for (int j = i + 1; j < array.length; j++) {
-                right += array[j];
-            }
-
-            if (left == right) {
-                return true;
-            }
-
-            left = 0;
-            right = 0;
-        }
-
-        return false;
-    }
-
-    // 7
-    public static void displaceElement(int[] array, int n) {
-        if (n == 0) {
-            return;
-        }
-
-        if (n > 0) {
-            for (int i = 0; i < n; i++) {
-                int firstElement = array[0];
-                array[0] = array[array.length - 1];
-
-                for (int j = 1; j < array.length - 1; j++) {
-                    array[array.length - j] = array[array.length - j - 1];
-                }
-                array[1] = firstElement;
-            }
-
-            for (int i = 0; i < array.length; i++) {
-                System.out.println(array[i]);
-            }
+        if (flag) {
+            System.out.println("Поздравляю! Вы отгадали слово!");
         } else {
-            for (int i = 0; i > n; i--) {
-                int firstElement = array[array.length - 1];
-                array[array.length - 1] = array[0];
+            System.out.println("В следующий раз повезет.");
+        }
 
-                for (int j = 1; j < array.length - 1; j++) {
-                    array[j - 1] = array[j];
-                }
-                array[array.length - 2] = firstElement;
-            }
+        repeatTheGameWords();
+    }
+
+    public static void repeatTheGameWords() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Повторить игру еще раз? 1 – да / 0 – нет");
+        int answer = scanner.nextInt();
+        if (answer == 1) {
+            guessTheWord();
         }
     }
 }
