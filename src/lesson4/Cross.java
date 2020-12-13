@@ -102,26 +102,20 @@ public class Cross {
     public static void aiStep() {
         int x,y;
         int yx[] = {-1,-1};
-        System.out.println(1);
+
         yx = checkPlayerDOT();
-        System.out.println(2);
 
         if (yx[0] < 0) {
-            System.out.println(31);
             do {
                 System.out.println(32);
                 x = random.nextInt(SIZE_X);
                 y = random.nextInt(SIZE_Y);
             } while (!isFieldCell(y, x));
-            System.out.println(33);
         } else {
-            System.out.println(34);
             y = yx[0];
             x = yx[1];
         }
-        System.out.println(35);
         setFieldCell(y,x,AI_DOT);
-        System.out.println(36);
     }
 
     public static int[] checkPlayerDOT() {
