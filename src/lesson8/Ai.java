@@ -53,32 +53,32 @@ public class Ai extends GameLogic {
             }
         }
         //игра на победу
-//        for (int v = 0; v < field.length; v++) {
-//            for (int h = 0; h < field[0].length; h++) {
-//                //анализ наличие поля для проверки
-//                if (h + sizeWin <= field[0].length) {                           //по горизонтале
-//                    if (checkLineHorisont(v, h, playerDot1) == sizeWin - 1) {
-//                        if (MoveAiLineHorisont(v, h, playerDot1)) return;
-//                    }
-//
-//                    if (v - sizeWin > -2) {                            //вверх по диагонале
-//                        if (checkDiaUp(v, h, playerDot1) == sizeWin - 1) {
-//                            if (MoveAiDiaUp(v, h, playerDot1)) return;
-//                        }
-//                    }
-//                    if (v + sizeWin <= field.length) {                       //вниз по диагонале
-//                        if (checkDiaDown(v, h, playerDot1) == sizeWin - 1) {
-//                            if (MoveAiDiaDown(v, h, playerDot1)) return;
-//                        }
-//                    }
-//                }
-//                if (v + sizeWin <= field.length) {                       //по вертикале
-//                    if (checkLineVertical(v, h, playerDot1) == sizeWin - 1) {
-//                        if (MoveAiLineVertical(v, h, playerDot1)) return;
-//                    }
-//                }
-//            }
-//        }
+        for (int v = 0; v < field.length; v++) {
+            for (int h = 0; h < field[0].length; h++) {
+                //анализ наличие поля для проверки
+                if (h + sizeWin <= field[0].length) {                           //по горизонтале
+                    if (checkLineHorisont(v, h, playerDot1) == sizeWin - 1) {
+                        if (MoveAiLineHorisont(v, h, playerDot1)) return;
+                    }
+
+                    if (v - sizeWin > -2) {                            //вверх по диагонале
+                        if (checkDiaUp(v, h, playerDot1) == sizeWin - 1) {
+                            if (MoveAiDiaUp(v, h, playerDot1)) return;
+                        }
+                    }
+                    if (v + sizeWin <= field.length) {                       //вниз по диагонале
+                        if (checkDiaDown(v, h, playerDot1) == sizeWin - 1) {
+                            if (MoveAiDiaDown(v, h, playerDot1)) return;
+                        }
+                    }
+                }
+                if (v + sizeWin <= field.length) {                       //по вертикале
+                    if (checkLineVertical(v, h, playerDot1) == sizeWin - 1) {
+                        if (MoveAiLineVertical(v, h, playerDot1)) return;
+                    }
+                }
+            }
+        }
 
         //случайный ход
         do {
